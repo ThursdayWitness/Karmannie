@@ -11,6 +11,7 @@ class ChildDrawer extends StatelessWidget {
       children: [
         DrawerHeader(
           child: Column(
+            //TODO: отдельный класс
             mainAxisSize: MainAxisSize.min,
             children: [
               const Icon(Icons.account_circle, size: 66),
@@ -18,7 +19,7 @@ class ChildDrawer extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const ChildPage()));},
-                  child: const Text('Имя аккаунта', style: TextStyle(decoration: TextDecoration.underline, fontSize: 24),)),
+                  child: const Text('Имя аккаунта', style: TextStyle(fontSize: 24),)),
             ],
           ),
         ),
