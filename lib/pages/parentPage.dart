@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
+import '../widgets/ParentDrawer.dart';
+import '../widgets/parentChildWidget.dart';
 
-class ParentPage extends StatefulWidget
-{
+class ParentPage extends StatelessWidget {
   const ParentPage({Key? key}) : super(key: key);
 
   @override
-  State<ParentPage> createState() => _ParentPageState();
-}
-
-class _ParentPageState extends State<ParentPage>{
-
-  @override
-  Widget build(BuildContext context){
-    return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(),
-        drawer: ,
-
-      ),
-    );
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("Мои дети"),
+        ),
+        drawer: const Drawer(
+          child: ParentDrawer(),
+        ),
+        body: ListView(children: const [
+          ChildWidget("Лошок"),
+          ChildWidget("Крутой чел"),
+          ChildWidget("Ну сойдёт"),
+          ChildWidget("О привет Максим"),
+        ]));
   }
 }
