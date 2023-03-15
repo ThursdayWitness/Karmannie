@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:karmannie/pages/childLogin.dart';
 import 'package:karmannie/pages/parentLogin.dart';
+import 'controllers/nav_button.dart';
 
 void main() => runApp(const MyApp());
 
@@ -13,9 +14,11 @@ class MyApp extends StatelessWidget {
       title: "Karmaнные",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        brightness: Brightness.light,
+        primaryColor: Colors.amber,
+        backgroundColor: Colors.white70,
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.amber)
             .copyWith(background: Colors.white),
-        // buttonTheme: ,
         textTheme: const TextTheme(
           displayLarge: TextStyle(
               color: Colors.black,
@@ -28,6 +31,7 @@ class MyApp extends StatelessWidget {
           centerTitle: true,
         ),
       ),
+      themeMode: ThemeMode.light,
       home: const HomePage(),
     );
   }
@@ -35,8 +39,6 @@ class MyApp extends StatelessWidget {
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
-
-  static const String _title = 'Start page';
 
   @override
   Widget build(BuildContext context) {
@@ -49,27 +51,8 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text("Karmaнные", style: Theme.of(context).textTheme.displayLarge),
-            ElevatedButton(
-              //TODO: выделить в отдельный класс
-                style: TextButton.styleFrom(
-                    fixedSize: const Size.fromWidth(200),
-                    foregroundColor: Colors.black,
-                    backgroundColor: Colors.amber),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const ParentLogin()));
-                },
-                child: const Text("Я родитель")),
-            ElevatedButton(
-                style: TextButton.styleFrom(
-                    fixedSize: const Size.fromWidth(200),
-                    foregroundColor: Colors.black,
-                    backgroundColor: Colors.amber),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const ChildLogin()));
-                },
-                child: const Text("Я ребёнок"))
+            const NavButton("Я ребёнок", ChildLogin()),
+            const NavButton("Я родитель", ParentLogin()),
           ],
         ),
       ));
