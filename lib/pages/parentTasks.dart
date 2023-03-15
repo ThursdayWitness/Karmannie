@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:karmannie/widgets/parentTaskWidget.dart';
 import '../widgets/parentDrawer.dart';
+import '../pseudo_database.dart';
+import '../widgets/task_box.dart';
 
 class ParentTasks extends StatefulWidget {
   const ParentTasks({Key? key}) : super(key: key);
@@ -16,23 +17,23 @@ class _ParentTasksState extends State<ParentTasks> {
       appBar: AppBar(
         title: const Text("Доска заданий"),
       ),
-      drawer: const Drawer(child: ParentDrawer(),),
-      body: ListView(
-        children: [
-          //TODO: change to function():List => DB request
-          //TODO: several constructors for ParentTask
-          ParentTask(isCompleted: true),
-          ParentTask(isCompleted: false),
-          ParentTask(isCompleted: false),
-          ParentTask(isCompleted: true),
-          ParentTask(isCompleted: false),
-          ParentTask(isCompleted: false),
-          ParentTask(isCompleted: true),
-          ParentTask(isCompleted: true),
-          ParentTask(isCompleted: true),
-        ],
+      drawer: const ParentDrawer("Тестовый родитель"),
+      body: Container(
+        padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
+        constraints: const BoxConstraints(maxWidth: 400),
+        alignment: Alignment.topCenter,
+
+        child: ListView(
+          children: [
+            for (var task in getParentTasks("Тестовый родитель"))
+              TaskBox.parentSide(task),
+          ],
+        ),
       ),
-      floatingActionButton: ElevatedButton(onPressed: (){}, child: const Icon(Icons.add),),
+      floatingActionButton: ElevatedButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
