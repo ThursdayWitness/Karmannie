@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:karmannie/widgets/ChildDrawer.dart';
-import '../widgets/taskBox.dart';
+import '../widgets/task_box.dart';
 import 'package:karmannie/pseudo_database.dart';
 
 class ChildTasks extends StatelessWidget {
-  // final child = getChild("Тестовый4");
   ChildTasks({Key? key}) : super(key: key);
 
   @override
