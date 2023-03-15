@@ -18,7 +18,7 @@ class ChildDrawer extends StatelessWidget {
               TextButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const ChildPage()));},
+                      builder: (context) => ChildPage()));},
                   child: const Text('Имя аккаунта', style: TextStyle(fontSize: 24),)),
             ],
           ),
@@ -28,18 +28,20 @@ class ChildDrawer extends StatelessWidget {
             const Icon(Icons.fact_check),
             TextButton(
               onPressed: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ChildTasks()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChildPage()));
               },
-              child: const Text("Задачи", style: TextStyle(color: Colors.black)),
+              child: const Text("Мой счёт", style: TextStyle(color: Colors.black)),
             ),
           ],
         ),
         Row(
           children: [
-            const Icon(Icons.settings),
+            const Icon(Icons.fact_check),
             TextButton(
-              onPressed: (){},
-              child: const Text("Настройки", style: TextStyle(color: Colors.black)),
+              onPressed: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChildTasks()));
+              },
+              child: const Text("Задачи", style: TextStyle(color: Colors.black)),
             ),
           ],
         ),

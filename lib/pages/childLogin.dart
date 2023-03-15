@@ -69,7 +69,7 @@ class _ChildLoginState extends State<ChildLogin> {
                 onPressed: () {
                   if (codeIsRight(loginController.text)) {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const ChildPage()));
+                        builder: (context) => ChildPage()));
                   } else {
                     showDialog(
                         context: context,

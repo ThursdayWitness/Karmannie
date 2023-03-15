@@ -1,10 +1,12 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import '../models/child.dart';
+import '../pseudo_database.dart';
 import '../widgets/ChildDrawer.dart';
 
 class ChildPage extends StatelessWidget {
-  const ChildPage({Key? key}) : super(key: key);
+  final Child child = getChild("Тестовый4");
+
+  ChildPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class ChildPage extends StatelessWidget {
                 const Icon(Icons.account_circle, size: 100),
                 Column(
                   children: [
-                    const Text("Имя аккаунта", style: TextStyle(fontSize: 24)),
+                    Text(child.getName, style: const TextStyle(fontSize: 24)),
                     SizedBox(
                       width: 160,
                       height: 24,
@@ -35,10 +37,10 @@ class ChildPage extends StatelessWidget {
                               ),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(20))),
-                          child: const Text(
-                            "344 руб.",
+                          child: Text(
+                            "${child.getMoney}руб.",
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           )),
                     ),
                   ],

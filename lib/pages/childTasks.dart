@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:karmannie/widgets/ChildDrawer.dart';
-import 'package:karmannie/widgets/ChildTaskWidget.dart';
+import '../widgets/taskBox.dart';
+import 'package:karmannie/pseudo_database.dart';
 
 class ChildTasks extends StatelessWidget {
-  const ChildTasks({Key? key}) : super(key: key);
+  // final child = getChild("Тестовый4");
+  ChildTasks({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,25 +15,9 @@ class ChildTasks extends StatelessWidget {
         ),
         drawer: const Drawer(child: ChildDrawer()),
         body: ListView(
-          children: const [
-            //TODO: контроллер-функция, формирующая список виджетов из запроса к БД
-            ChildTask(),
-            ChildTask(),
-            ChildTask(),
-            ChildTask(),
-            ChildTask(),
-            ChildTask(),
-            ChildTask(),
-            ChildTask(),
-            ChildTask(),
-            ChildTask(),
-            ChildTask(),
-            ChildTask(),
-            ChildTask(),
-            ChildTask(),
-            ChildTask(),
-            ChildTask(),
-            ChildTask(),
+          children: [
+            for(var task in getChildTasks("Тестовый4")) TaskBox.childrenSide(task),
+            //ChildTask(),
           ],
         ),
       );
