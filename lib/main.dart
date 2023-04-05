@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:karmannie/pages/childLogin.dart';
-import 'package:karmannie/pages/parentLogin.dart';
-import 'controllers/nav_button.dart';
+import 'package:karmannie/pages/login_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -16,46 +14,28 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.light,
         primaryColor: Colors.amber,
-        backgroundColor: Colors.white70,
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.amber)
+        colorScheme: ColorScheme.fromSwatch(
+                primarySwatch: Colors.amber, accentColor: Colors.black)
             .copyWith(background: Colors.white),
+        fontFamily: "Montserrat",
         textTheme: const TextTheme(
           displayLarge: TextStyle(
               color: Colors.black,
+              fontFamily: "Inter",
               fontSize: 44,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.normal,
               decoration: TextDecoration.none),
         ),
         appBarTheme: const AppBarTheme(
-          // shape: ShapeBorder(),
+          titleTextStyle:
+              TextStyle(fontFamily: "Inter", fontSize: 20, color: Colors.black),
           centerTitle: true,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))),
         ),
       ),
       themeMode: ThemeMode.light,
-      home: const HomePage(),
+      home: const StartPage(),
     );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Builder(builder: (context) {
-      return Center(
-          child: FractionallySizedBox(
-        heightFactor: 0.3,
-        widthFactor: 0.5,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text("Karmaнные", style: Theme.of(context).textTheme.displayLarge),
-            const NavButton("Я ребёнок", ChildLogin()),
-            const NavButton("Я родитель", ParentLogin()),
-          ],
-        ),
-      ));
-    });
   }
 }

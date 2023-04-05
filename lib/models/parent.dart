@@ -1,21 +1,22 @@
-import 'task.dart';
+import 'dart:math';
+
 import 'child.dart';
 
-class Parent{
+class Parent {
   final String name;
-  final String login;
-  final String password;
   final List<Child> children;
 
-  Parent(this.name, this.login, this.password, this.children);
+  Parent(this.name, this.children);
 
-  void createChild(String name, int password)
-  {
-    children.add(Child(name: name, password: password));
+  void createChild(String name) {
+    children.add(Child(name: name));
   }
 
-  void createTask(Child child, String name, int reward, DateTime deadline)
-  {
+  void createTask(Child child, String name, int reward, DateTime deadline) {
     child.addTask(name, reward, deadline);
+  }
+
+  int generateChildCode() {
+    return Random.secure().nextInt(89999) + 10000; // от 10000 до 99999
   }
 }

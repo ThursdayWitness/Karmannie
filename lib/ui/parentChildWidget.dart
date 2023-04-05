@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ChildWidget extends StatelessWidget
-{
+class ChildWidget extends StatelessWidget {
   final String childName;
-  const ChildWidget(this.childName, {Key? key} ) : super(key: key);
+  const ChildWidget(this.childName, {Key? key}) : super(key: key);
 
-  @override build(BuildContext context)
-  {
+  @override
+  build(BuildContext context) {
     return Column(
       children: [
         Row(

@@ -1,4 +1,4 @@
-class Task{
+class Task {
   final String name;
   final int reward;
   String description = "";
@@ -6,9 +6,9 @@ class Task{
   bool isCompleted = false;
   // final Child child;
 
-  Task(this.name, this.reward, this.deadline, {String? description, bool? isCompleted})
-  {
-    if(description != null) this.description = description;
-    if(isCompleted != null) this.isCompleted = isCompleted;
+  Task(this.name, this.reward, this.deadline,
+      {String? description, bool? isCompleted}) {
+    if (description != null) this.description = description;
+    if (isCompleted != null) this.isCompleted = isCompleted;
   }
 }
