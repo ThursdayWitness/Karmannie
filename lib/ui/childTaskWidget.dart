@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-//TODO: убрать кликабельность заголовка, добавить кнопку "Профиль".
 class ChildTask extends StatelessWidget {
   const ChildTask({Key? key}) : super(key: key);
 

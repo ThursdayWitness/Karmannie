@@ -1,14 +1,23 @@
 class Task {
-  final String name;
-  final int reward;
-  String description = "";
-  final DateTime deadline;
-  bool isCompleted = false;
-  // final Child child;
+  late final String id;
+  late final String title;
+  late final String? description;
+  late final int reward;
+  late bool isDone;
 
-  Task(this.name, this.reward, this.deadline,
-      {String? description, bool? isCompleted}) {
-    if (description != null) this.description = description;
-    if (isCompleted != null) this.isCompleted = isCompleted;
+  Task(Map<String, dynamic> dbTask) {
+    id = dbTask["id"];
+    title = dbTask["title"];
+    description = dbTask["description"];
+    reward = dbTask["reward"].runtimeType == String
+        ? int.parse(dbTask["reward"])
+        : dbTask["reward"];
+    isDone = dbTask["isDone"];
+  }
+
+  @override
+  String toString()
+  {
+    return "Title: $title, Description: $description, Reward: $reward, isDone: $isDone\n";
   }
 }

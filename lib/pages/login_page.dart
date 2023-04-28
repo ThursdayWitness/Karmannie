@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 
+import "../dbUtils.dart";
 import "../ui/input_field.dart";
 import "../ui/nav_button.dart";
 import "../ui/popupWindow.dart";
@@ -20,12 +21,12 @@ class StartPage extends StatelessWidget {
           Text("Karmaнные", style: Theme.of(context).textTheme.displayLarge),
           NavButton(
               child: "Я родитель",
-              action: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => LoginParent()))), // LoginChild
+              action: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => LoginParent()))),
           NavButton(
               child: "Я ребёнок",
-              action: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const LoginChild()))), // LoginParent
+              action: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const LoginChild()))),
         ],
       ),
     ));
@@ -84,12 +85,10 @@ class LoginParent extends StatelessWidget {
                         const TextStyle(fontFamily: "Inter", fontSize: 24),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10))),
-                onPressed: () {
-                  // if (codeIsRight(
-                  //     loginController.text, passwordController.text)) {
+                onPressed: () async {
+                  var parent = await getParent("Батя");
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const ParentPage()));
-                  // }
+                      builder: (context) => ParentTasks(parent: parent)));
                 },
                 child: const Text("Войти"),
               ),
@@ -143,12 +142,10 @@ class LoginChild extends StatelessWidget {
                         const TextStyle(fontFamily: "Inter", fontSize: 24),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10))),
-                onPressed: () {
-                  // if (codeIsRight(
-                  //     loginController.text, passwordController.text)) {
+                onPressed: () async {
+                  var child = await getChild("Маруся");
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const ChildTasks()));
-                  // }
+                      builder: (context) => ChildTasks(child: child)));
                 },
                 child: const Text("Войти"),
               ),

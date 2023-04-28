@@ -1,22 +1,17 @@
-import 'dart:math';
-
 import 'child.dart';
+import 'task.dart';
 
 class Parent {
-  final String name;
-  final List<Child> children;
+  late final String name;
+  late List<Child> children = List<Child>.empty(growable: true);
+  late List<Task> tasks = List<Task>.empty(growable: true);
 
-  Parent(this.name, this.children);
-
-  void createChild(String name) {
-    children.add(Child(name: name));
-  }
-
-  void createTask(Child child, String name, int reward, DateTime deadline) {
-    child.addTask(name, reward, deadline);
-  }
-
-  int generateChildCode() {
-    return Random.secure().nextInt(89999) + 10000; // от 10000 до 99999
+  Parent(Map<String, dynamic> dbParent) {
+    name = dbParent["name"];
+    children = (dbParent["child"]);
+    for(var child in children)
+      {
+        tasks.addAll(child.tasks);
+      }
   }
 }
