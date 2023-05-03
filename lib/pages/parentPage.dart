@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:karmannie/pages/taskPage.dart';
 
 import '../models/all.dart';
 import '../ui/task_box.dart';
@@ -80,10 +81,11 @@ class _ParentTasksState extends State<ParentTasks> {
       body: ListView(
         children: [
           for (var task in widget.parent.tasks)
-            TaskBox.parentSide(
-              task: task,
-              callback: setState,
-            )
+            if (!task.isRewied)
+              TaskBox.parentSide(
+                task: task,
+                callback: setState,
+              )
         ],
       ),
       floatingActionButton: ElevatedButton(
@@ -91,7 +93,10 @@ class _ParentTasksState extends State<ParentTasks> {
           shape: const CircleBorder(),
           padding: const EdgeInsets.all(16),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => const TaskPage()));
+        },
         child: const Icon(Icons.add, size: 44),
       ),
     );

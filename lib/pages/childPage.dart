@@ -85,8 +85,7 @@ class _ChildTasksState extends State<ChildTasks> {
             unselectedItemColor: Theme.of(context).colorScheme.secondary,
             backgroundColor: Theme.of(context).colorScheme.primary,
             onTap: (value) => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ChildProfile(
-                    child: widget.child))),
+                builder: (context) => ChildProfile(child: widget.child))),
             items: const [
               BottomNavigationBarItem(
                   icon: Icon(Icons.person_outline_rounded), label: "Профиль"),
@@ -136,10 +135,11 @@ class _ChildTasksState extends State<ChildTasks> {
       body: ListView(
         children: [
           for (var task in widget.child.tasks)
-            TaskBox.childrenSide(
-              task: task,
-              callback: setState,
-            )
+            if (!task.isRewied)
+              TaskBox.childrenSide(
+                task: task,
+                callback: setState,
+              )
         ],
       ),
     );

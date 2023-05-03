@@ -9,9 +9,13 @@ class Parent {
   Parent(Map<String, dynamic> dbParent) {
     name = dbParent["name"];
     children = (dbParent["child"]);
-    for(var child in children)
-      {
-        tasks.addAll(child.tasks);
-      }
+    for (var child in children) {
+      tasks.addAll(child.tasks);
+    }
+    tasks.sort((a,b) {if(b.isDone) {
+      return 1;
+    } else {
+      return -1;
+    }});
   }
 }

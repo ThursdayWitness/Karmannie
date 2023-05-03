@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:karmannie/custom_icons_icons.dart';
+import '../dbUtils.dart';
 import '../models/task.dart';
 import '../pages/taskPage.dart';
 
@@ -22,7 +23,7 @@ class TaskBox extends StatelessWidget {
       decoration: BoxDecoration(
           border: Border(
               bottom: BorderSide(
-                  color: Theme.of(context).primaryColor, width: 2.4))),
+                  color: task.isDone ? Colors.green : Theme.of(context).primaryColor, width: 2.4))),
       constraints: BoxConstraints.tight(const Size.fromHeight(100)),
       margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: Column(
@@ -65,6 +66,7 @@ class TaskBox extends StatelessWidget {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => TaskPage(
                           task: task,
+                          isReadOnly: true,
                         )));
               },
               child: Container(
@@ -89,12 +91,11 @@ class TaskBox extends StatelessWidget {
                       if (isOnParentSide && task.isDone)
                         InkWell(
                           onTap: () {
-                            confirmDialogBuilder(context, task: task)
-                                .then((value) => callback!(() => {}));
+                            // confirmDialogBuilder(context, task: task)
+                            //     .then((value) => callback!(() => {}));
                           },
                           child: Stack(children: const [
-                            Icon(Icons.circle,
-                                color: Colors.black, size: 40),
+                            Icon(Icons.circle, color: Colors.black, size: 40),
                             Icon(
                               CustomIcons.ok_circle,
                               color: checkIconColor,
@@ -105,12 +106,17 @@ class TaskBox extends StatelessWidget {
                       if (!isOnParentSide && !task.isDone)
                         InkWell(
                           onTap: () {
-                            confirmDialogBuilder(context, task: task)
+                            if(!isOnParentSide) {
+                              completeTaskDialogBuilder(context, task: task)
                                 .then((value) => callback!(() => {}));
+                            }
+                            else
+                              {
+                                
+                              }
                           },
                           child: Stack(children: const [
-                            Icon(Icons.circle,
-                                color: Colors.black, size: 40),
+                            Icon(Icons.circle, color: Colors.black, size: 40),
                             Icon(
                               CustomIcons.ok_circle,
                               color: checkIconColor,
@@ -128,7 +134,7 @@ class TaskBox extends StatelessWidget {
   }
 }
 
-Future<void> confirmDialogBuilder(BuildContext context, {required Task task}) {
+Future<void> completeTaskDialogBuilder(BuildContext context, {required Task task}) {
   return showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -154,9 +160,9 @@ Future<void> confirmDialogBuilder(BuildContext context, {required Task task}) {
               'Отправить',
             ),
             onPressed: () {
-              // completeTask(task);
+              completeTask(task);
               Navigator.of(context).pop();
-              dialogBuilder(context, task: task);
+              dialogBuilder(context, task: task, text: 'Задание ${task.title} успешно отправлено на проверку!');
             },
           )
         ],
@@ -165,12 +171,51 @@ Future<void> confirmDialogBuilder(BuildContext context, {required Task task}) {
   );
 }
 
-Future<void> dialogBuilder(BuildContext context, {required Task task}) {
+Future<void> reviewTaskDialogBuilder(BuildContext context, {required Task task})
+{
   return showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        content: Text('Задание ${task.title} успешно отправлено на проверку!'),
+        actionsAlignment: MainAxisAlignment.center,
+        content: Text('Хочешь подтвердить выполнение задания "${task.title}"?'),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepOrange,
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Отменить")),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green,
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text(
+              'Подтвердить',
+            ),
+            onPressed: () {
+              reviewTask(task);
+              // rewardChild(, task.reward);
+              Navigator.of(context).pop();
+              dialogBuilder(context, task: task, text: 'Выполнение задания "${task.title}" успешно подтверждено!');
+            },
+          )
+        ],
+      );
+    },
+  );
+}
+
+Future<void> dialogBuilder(BuildContext context, {required Task task, required String text}) {
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        content: Text(text),
         actions: [
           TextButton(
             style: TextButton.styleFrom(

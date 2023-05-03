@@ -26,7 +26,7 @@ class StartPage extends StatelessWidget {
           NavButton(
               child: "Я ребёнок",
               action: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const LoginChild()))),
+                  MaterialPageRoute(builder: (context) => LoginChild()))),
         ],
       ),
     ));
@@ -101,7 +101,9 @@ class LoginParent extends StatelessWidget {
 }
 
 class LoginChild extends StatelessWidget {
-  const LoginChild({Key? key}) : super(key: key);
+  LoginChild({Key? key}) : super(key: key);
+
+  final codeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +122,7 @@ class LoginChild extends StatelessWidget {
                       style: TextStyle(color: Colors.blue, fontSize: 16))),
               Text("Karmaнные",
                   style: Theme.of(context).textTheme.displayLarge),
-              const InputBlock(label: "Твой код"),
+              InputBlock(label: "Твой код", controller: codeController),
               TextButton(
                   onPressed: () {
                     showDialog(
@@ -143,7 +145,7 @@ class LoginChild extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10))),
                 onPressed: () async {
-                  var child = await getChild("Маруся");
+                  var child = await getChild(codeController.text);
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => ChildTasks(child: child)));
                 },
