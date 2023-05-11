@@ -41,49 +41,13 @@ class _ParentTasksState extends State<ParentTasks> {
       appBar: AppBar(
         title: const Text("Доска заданий"),
       ),
-      /*body: FutureBuilder<List<Task>>(
-        // future: getChildTasks("Маруся"),
-        future: getTasks(),
-        builder: (BuildContext context, AsyncSnapshot<List<Task>> snapshot) {
-          if (snapshot.hasError) {
-            return Text("${snapshot.error}");
-          }
-          if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.data!.isEmpty) {
-              return Center(
-                child: Text(
-                  "Все задачи выполнены!\nДобавьте новую!",
-                  style: Theme.of(context).textTheme.titleLarge,
-                  textAlign: TextAlign.center,
-                ),
-              );
-            } else {
-              var data = snapshot.data!;
-              return ListView(
-                children: [
-                  for (var task in data)
-                    TaskBox.parentSide(
-                      task: task,
-                      callback: setState,
-                    )
-                ],
-              );
-            }
-          }
-          return Center(
-            child: Text(
-              "Загрузка....",
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          );
-        },
-      ),*/
       body: ListView(
         children: [
-          for (var task in widget.parent.tasks)
-            if (!task.isRewied)
+          for (var entry in widget.parent.tasks.entries)
+            if (!entry.value.isRewied)
               TaskBox.parentSide(
-                task: task,
+                task: entry.value,
+                child: entry.key,
                 callback: setState,
               )
         ],

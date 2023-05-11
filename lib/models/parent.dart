@@ -4,18 +4,16 @@ import 'task.dart';
 class Parent {
   late final String name;
   late List<Child> children = List<Child>.empty(growable: true);
-  late List<Task> tasks = List<Task>.empty(growable: true);
+  Map<Child, Task> tasks = <Child, Task>{};
 
   Parent(Map<String, dynamic> dbParent) {
     name = dbParent["name"];
     children = (dbParent["child"]);
     for (var child in children) {
-      tasks.addAll(child.tasks);
+      for(var task in child.tasks)
+        {
+          tasks[child] = task;
+        }
     }
-    tasks.sort((a,b) {if(b.isDone) {
-      return 1;
-    } else {
-      return -1;
-    }});
   }
 }
