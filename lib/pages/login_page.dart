@@ -1,11 +1,12 @@
 import "package:flutter/material.dart";
+import 'package:firebase_auth/firebase_auth.dart';
 
 import "../dbUtils.dart";
 import "../ui/input_field.dart";
 import "../ui/nav_button.dart";
 import "../ui/popupWindow.dart";
-import "childPage.dart";
-import "parentPage.dart";
+import "./childPage.dart";
+import "./parentPage.dart";
 
 class StartPage extends StatelessWidget {
   const StartPage({Key? key}) : super(key: key);
