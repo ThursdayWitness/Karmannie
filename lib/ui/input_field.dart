@@ -19,7 +19,7 @@ class InputBlock extends StatelessWidget {
               style: const TextStyle(fontSize: 18, fontFamily: "Montserrat"),
             ),
           ),
-        TextField(
+        TextFormField(
             controller: controller,
             decoration: InputDecoration(
               isDense: true,
