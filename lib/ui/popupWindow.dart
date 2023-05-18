@@ -6,6 +6,7 @@ class PopupWindow extends StatelessWidget {
   final String messageText;
 
   const PopupWindow({Key? key, required this.messageText}) : super(key: key);
+
   const PopupWindow.dialog({Key? key, required this.messageText})
       : super(key: key);
 

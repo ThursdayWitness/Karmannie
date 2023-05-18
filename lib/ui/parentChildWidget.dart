@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ChildWidget extends StatelessWidget {
   final String childName;
+
   const ChildWidget(this.childName, {Key? key}) : super(key: key);
 
   @override
