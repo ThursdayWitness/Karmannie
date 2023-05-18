@@ -107,7 +107,7 @@ class _ParentTasksState extends State<ParentTasks> {
                         )));
               } else if (value == 1) {
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const TaskPage()));
+                    MaterialPageRoute(builder: (context) => TaskPage(parent: parent,)));
               }
             },
             items: const [
@@ -134,6 +134,7 @@ class _ParentTasksState extends State<ParentTasks> {
                         TaskBox.parentSide(
                           task: task,
                           child: entry.key,
+                          parent: parent,
                           callback: setState,
                         )
                 ],
@@ -158,7 +159,7 @@ Future<void> addChildDialogBuilder(BuildContext context, String parentName) {
         actionsAlignment: MainAxisAlignment.center,
         title: const Text('Введите данные ребёнка'),
         content: Container(
-          constraints: BoxConstraints(maxHeight: 100),
+          constraints: const BoxConstraints(maxHeight: 100),
           child: InputBlock(
             inputType: TextInputType.name,
             label: "Имя ребёнка",

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:karmannie/custom_icons_icons.dart';
 
 import '../dbUtils.dart';
-import '../models/child.dart';
-import '../models/task.dart';
+import '../models/all.dart';
 import '../pages/taskPage.dart';
 
 class TaskBox extends StatelessWidget {
   Child? child;
+  Parent? parent;
   final Task task;
   late bool isOnParentSide = false;
   final void Function(void Function())? callback;
@@ -16,7 +16,7 @@ class TaskBox extends StatelessWidget {
       : super(key: key);
 
   TaskBox.parentSide(
-      {required this.task, required this.child, this.callback, Key? key})
+      {required this.task, this.parent, required this.child, this.callback, Key? key})
       : super(key: key) {
     isOnParentSide = true;
   }
@@ -75,6 +75,7 @@ class TaskBox extends StatelessWidget {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => TaskPage(
                           task: task,
+                          parent: parent,
                           isReadOnly: true,
                         )));
               },
