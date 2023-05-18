@@ -5,6 +5,7 @@ class UserProfileCard extends StatelessWidget {
   final IconData userProfilePic;
   final String? code;
   final String? balance;
+
   const UserProfileCard(
       {required this.userName,
       required this.userProfilePic,
@@ -15,20 +16,30 @@ class UserProfileCard extends StatelessWidget {
 
   @override
   build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(userProfilePic, size: 100),
-            Column(children: [
-              Text(userName, style: const TextStyle(fontSize: 24)),
-              if (balance != null) Text("Баланс: ${balance!}"),
-              if (code != null) Text("Код: ${code!}"),
-            ]),
-          ],
-        )
-      ],
+    return Container(
+      padding: const EdgeInsets.only(left: 44.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 44.0),
+            child: Icon(userProfilePic, size: 100),
+          ),
+          Container(
+            constraints: const BoxConstraints(maxHeight: 100),
+            child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(userName, style: const TextStyle(fontSize: 24)),
+                  if (balance != null) Text("Баланс: ${balance!}р."),
+                  if (code != null) Text("Код: ${code!}"),
+                ]),
+          ),
+        ],
+      ),
     );
   }
 }
