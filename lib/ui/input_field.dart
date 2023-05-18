@@ -3,8 +3,10 @@ import "package:flutter/material.dart";
 class InputBlock extends StatelessWidget {
   final String? label;
   final TextEditingController? controller;
+  final TextInputType? inputType;
 
-  const InputBlock({Key? key, this.label, this.controller}) : super(key: key);
+  const InputBlock({Key? key, this.label, this.controller, this.inputType})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,14 +14,15 @@ class InputBlock extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (label != null)
-          Padding(
+          Container(
             padding: const EdgeInsets.fromLTRB(0, 16, 0, 8),
             child: Text(
-              label!,
+              "$label:",
               style: const TextStyle(fontSize: 18, fontFamily: "Montserrat"),
             ),
           ),
         TextFormField(
+            keyboardType: inputType,
             controller: controller,
             decoration: InputDecoration(
               isDense: true,
