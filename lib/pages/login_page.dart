@@ -1,14 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:firebase_core/firebase_core.dart";
 import "package:flutter/material.dart";
-import 'package:firebase_auth/firebase_auth.dart';
 
+import "./childPage.dart";
+import "./parentPage.dart";
 import "../dbUtils.dart";
 import "../firebase_options.dart";
 import "../ui/input_field.dart";
 import "../ui/nav_button.dart";
 import "../ui/popupWindow.dart";
-import "./childPage.dart";
-import "./parentPage.dart";
 
 class StartPage extends StatelessWidget {
   const StartPage({Key? key}) : super(key: key);
@@ -96,10 +96,12 @@ class LoginParent extends StatelessWidget {
                 InputBlock(
                   label: "Email",
                   controller: emailController,
+                  inputType: TextInputType.emailAddress,
                 ),
                 InputBlock(
                   label: "Пароль",
                   controller: passwordController,
+                  inputType: TextInputType.visiblePassword,
                 ),
                 TextButton(
                     onPressed: () {
@@ -181,18 +183,22 @@ class RegisterParent extends StatelessWidget {
                   label: "Пароль",
                   controller: passwordController,
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(244, 44),
-                      textStyle:
-                          const TextStyle(fontFamily: "Inter", fontSize: 24),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  onPressed: () async {
-                    registerUser(emailController.text, passwordController.text,
-                        nameController.text).whenComplete(() => Navigator.of(context).pop());
-                  },
-                  child: const Text("Зарегистрироваться"),
+                Container(
+                  margin: const EdgeInsets.only(top: 16),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        fixedSize: const Size(244, 44),
+                        textStyle:
+                            const TextStyle(fontFamily: "Inter", fontSize: 20),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    onPressed: () async {
+                      registerUser(emailController.text,
+                              passwordController.text, nameController.text)
+                          .whenComplete(() => Navigator.of(context).pop());
+                    },
+                    child: const Text("Зарегистрироваться"),
+                  ),
                 ),
               ],
             ),
@@ -231,7 +237,10 @@ class LoginChild extends StatelessWidget {
                       style: TextStyle(color: Colors.blue, fontSize: 16))),
               Text("Karmaнные",
                   style: Theme.of(context).textTheme.displayLarge),
-              InputBlock(label: "Твой код", controller: codeController),
+              InputBlock(
+                  label: "Твой код",
+                  controller: codeController,
+                  inputType: TextInputType.number),
               TextButton(
                   onPressed: () {
                     showDialog(
@@ -268,15 +277,16 @@ class LoginChild extends StatelessWidget {
   }
 }
 
-Future<String?> loginUser(String email, String password) async {
+Future<UserCredential?> loginUser(String email, String password) async {
   try {
-    UserCredential userCredential = await FirebaseAuth.instance
+    var userCredential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
+    return userCredential;
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
-      print('No user found for that email.');
+      throw ('No user found for that email.');
     } else if (e.code == 'wrong-password') {
-      print('Wrong password provided for that user.');
+      throw ('Wrong password provided for that user.');
     }
   }
   return null;
