@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:karmannie/custom_icons_icons.dart';
+
 import '../dbUtils.dart';
 import '../models/child.dart';
 import '../models/task.dart';
@@ -13,7 +14,9 @@ class TaskBox extends StatelessWidget {
 
   TaskBox.childrenSide({required this.task, this.callback, Key? key})
       : super(key: key);
-  TaskBox.parentSide({required this.task, required this.child, this.callback, Key? key})
+
+  TaskBox.parentSide(
+      {required this.task, required this.child, this.callback, Key? key})
       : super(key: key) {
     isOnParentSide = true;
   }
@@ -51,6 +54,7 @@ class TaskBox extends StatelessWidget {
                         : task.title,
                     style: const TextStyle(fontSize: 20, fontFamily: "Inter")),
                 Row(mainAxisSize: MainAxisSize.max, children: [
+                  if (child != null) Text(child!.name),
                   const Icon(
                     Icons.account_circle_rounded,
                   ),
@@ -97,7 +101,8 @@ class TaskBox extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             {
-                              reviewTaskDialogBuilder(context, task: task, child: child!)
+                              reviewTaskDialogBuilder(context,
+                                      task: task, child: child!)
                                   .then((value) => callback!(() => {}));
                             }
                           },
